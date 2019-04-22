@@ -5,8 +5,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class GsService {
+  private baseApiURL = "http://api.wassim.ovh";
   constructor(public http: HttpClient) { }
   test() {
-    this.http.get("http://api.wassim.ovh/product").subscribe(rep => console.log(rep));
+    this.http.get(this.baseApiURL + "/product").subscribe(rep => console.log(rep));
+  }
+  get(path, params = {}) {
+    this.http.get(this.baseApiURL + path, { params }).subscribe(rep => console.log(rep));
   }
 }
