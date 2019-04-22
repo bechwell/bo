@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GsService } from './gs.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'bo';
+  constructor(private gs: GsService) {
+
+  }
 }
