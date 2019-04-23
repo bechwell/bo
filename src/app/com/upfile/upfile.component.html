@@ -1,0 +1,20 @@
+<div class="position-relative containerupfile">
+  <img [src]="url" class="rounded" (click)="selectFile()" />
+  <div style="display: none">
+    <input type="file" #file />
+  </div>
+  <div
+    class="progress"
+    style="height: 3px;"
+    [hidden]="!state.progress || state.done"
+  >
+    <div
+      class="progress-bar"
+      role="progressbar"
+      [ngStyle]="{ width: state.progress + '%' }"
+      [attr.aria-valuenow]="state.progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+    ></div>
+  </div>
+</div>

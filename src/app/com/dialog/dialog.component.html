@@ -1,0 +1,25 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <ng-content select="header"></ng-content>
+    </h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng-content></ng-content>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">
+      Fermer
+    </button>
+    <ng-content select="footer"></ng-content>
+  </div>
+  <loading *ngIf="loading"></loading>
+</ng-template>

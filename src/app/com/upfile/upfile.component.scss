@@ -1,0 +1,14 @@
+:host {
+  display: inline-block;
+}
+.containerupfile .progress {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  z-index: 1000;
+}
+.containerupfile > img {
+  width: 200px;
+  height: 200px;
+}
