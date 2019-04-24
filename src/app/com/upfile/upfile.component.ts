@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from "@angular/core";
 import { GsService } from "./../../gs.service";
-
+import icon from "./upload.png";
 @Component({
   selector: "upfile",
   templateUrl: "./upfile.component.html",
@@ -8,19 +8,51 @@ import { GsService } from "./../../gs.service";
 })
 export class UpfileComponent implements OnInit {
   private state: any = {};
-  private url = "http://lorempixel.com/200/200/";
+  private _url = "";
+  private icon = icon;
+  private readyimg = false;
+  private isEmpty = true;
+  @Input() public fixHeight: number = 0;
+  @Input() public fixWidth: number = 0;
+  @Output() urlChange: EventEmitter<string> = new EventEmitter<string>();
+
+  @Input() public dist: string = "";
+  @Input() public title: string = "";
+
+  get url() {
+    if (this.isEmpty) {
+      return "";
+    } else {
+      return this._url;
+    }
+  }
+  @Input()
+  set url(v: string) {
+    this._url = v;
+    if (this._url && this._url !== "") {
+      this.isEmpty = false;
+      this.urlChange.emit(this._url);
+    } else {
+      this.isEmpty = true;
+    }
+  }
   @ViewChild("file")
   file;
-  constructor(public gs: GsService) {}
+  constructor(public gs: GsService) {
 
-  ngOnInit() {}
+  }
+  ngOnInit() { }
   selectFile() {
     this.file.nativeElement.onchange = e => {
-      this.gs
-        .uploadFile(this.file.nativeElement, {}, this.state)
-        .then((rep: any) => {
-          this.url = "http://api.wassim.ovh" + rep.url;
-        });
+      if (this.file.nativeElement.files.length) {
+        this.gs
+          .uploadFile(this.file.nativeElement, { dist: this.dist, title: this.title }, this.state)
+          .then((rep: any) => {
+            this.readyimg = false;
+            this.url = rep.url;
+            this.file.nativeElement.value = "";
+          });
+      }
     };
     this.file.nativeElement.click();
   }

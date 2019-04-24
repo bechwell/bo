@@ -8,7 +8,7 @@ export class GsService {
   public user: any = null;
   private accessToken = "";
   public config: any = {};
-  private baseApiURL = "http://api.wassim.ovh/api";
+  public baseApiURL = "http://api.wassim.ovh/api";
   constructor(public http: HttpClient) {
     let u = localStorage.getItem("user");
     if (u) this.user = JSON.parse(u);
@@ -109,6 +109,9 @@ export class GsService {
               state.done = true;
               state.progress = 100;
               let d = this.handlApiResponce(event.body);
+              if (d.url) {
+                d.url = (this.baseApiURL || "").split("/", 3).join("/") + d.url;
+              }
               state.data = d;
               resolve(d);
               break;
@@ -121,15 +124,15 @@ export class GsService {
   test() {
     this.get("product").then(console.log);
   }
-  crud(api, options: any = {}) {
+  crud(api: any, options: any = {}) {
     return new Crud(this, api, options);
   }
-  login(login, pass) {
+  login(login: string, pass: string) {
     return this.api("login", { login, pass }).then(rep => {
       return this.user;
     });
   }
-  logout() {}
+  logout() { }
 }
 
 @Injectable({

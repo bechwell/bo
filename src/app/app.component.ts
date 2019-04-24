@@ -8,6 +8,7 @@ import { GsService } from './gs.service';
 })
 export class AppComponent {
   title = 'bo';
+  url = "";
   constructor(private gs: GsService) {
 
   }

@@ -1,20 +1,25 @@
-<div class="position-relative containerupfile">
-  <img [src]="url" class="rounded" (click)="selectFile()" />
+<div class="containerupfile" [ngClass]="{'fixHeight': fixHeight>0}"
+  [ngStyle]="{height:fixHeight>0?fixHeight+'px':'auto',width:(isEmpty && fixHeight>0)?fixHeight+'px':'auto'}"
+  (click)="selectFile()">
+
+  <img [hidden]="isEmpty" class="imgclient" [src]="_url" (load)="readyimg = true" />
+  <img [hidden]="!isEmpty" [src]="icon" class="emptyimage">
+
   <div style="display: none">
     <input type="file" #file />
   </div>
-  <div
-    class="progress"
-    style="height: 3px;"
-    [hidden]="!state.progress || state.done"
-  >
-    <div
-      class="progress-bar"
-      role="progressbar"
-      [ngStyle]="{ width: state.progress + '%' }"
-      [attr.aria-valuenow]="state.progress"
-      aria-valuemin="0"
-      aria-valuemax="100"
-    ></div>
+  <div class="uploadinginfos" [hidden]="!state.progress || state.done">
+
+    <span>{{state.progress + '%'}}</span>
+    <div class="progress" style="height: 3px;">
+      <div class="progress-bar" role="progressbar" [ngStyle]="{ width: state.progress + '%' }"
+        [attr.aria-valuenow]="state.progress" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+  </div>
+  <div class="uploadinginfos" [hidden]="readyimg || isEmpty">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
   </div>
 </div>
