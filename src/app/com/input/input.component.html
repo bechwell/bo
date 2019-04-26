@@ -12,7 +12,10 @@
     [(ngModel)]="myModelValue"
     (ngModelChange)="updateValue(myModelValue)"
   />
-  <div class="valid-feedback" [hidden]="!(_myModel || {}).success">
+  <div
+    class="valid-feedback"
+    [hidden]="!(_myModel || {}).success || (_myModel || {}).success === true"
+  >
     {{ (_myModel || {}).success }}
   </div>
   <div class="invalid-feedback" [hidden]="!(_myModel || {}).error">

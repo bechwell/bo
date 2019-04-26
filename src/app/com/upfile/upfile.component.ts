@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter
+} from "@angular/core";
 import { GsService } from "./../../gs.service";
 import icon from "./upload.png";
 @Component({
@@ -38,15 +45,17 @@ export class UpfileComponent implements OnInit {
   }
   @ViewChild("file")
   file;
-  constructor(public gs: GsService) {
-
-  }
-  ngOnInit() { }
+  constructor(public gs: GsService) {}
+  ngOnInit() {}
   selectFile() {
     this.file.nativeElement.onchange = e => {
       if (this.file.nativeElement.files.length) {
         this.gs
-          .uploadFile(this.file.nativeElement, { dist: this.dist, title: this.title }, this.state)
+          .uploadFile(
+            this.file.nativeElement,
+            { dist: this.dist, title: this.title },
+            this.state
+          )
           .then((rep: any) => {
             this.readyimg = false;
             this.url = rep.url;

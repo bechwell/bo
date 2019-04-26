@@ -1,21 +1,36 @@
-<div class="containerupfile" [ngClass]="{'fixHeight': fixHeight>0}"
-  [ngStyle]="{height:fixHeight>0?fixHeight+'px':'auto',width:(isEmpty && fixHeight>0)?fixHeight+'px':'auto'}"
-  (click)="selectFile()">
-
-  <img [hidden]="isEmpty" class="imgclient" [src]="_url" (load)="readyimg = true" />
-  <img [hidden]="!isEmpty" [src]="icon" class="emptyimage">
+<!-- <upfile [(url)]="url" [fixHeight]="130" dist="images" title="titre d'image" style="max-width:130px"></upfile> -->
+<div
+  class="containerupfile"
+  [ngClass]="{ fixHeight: fixHeight > 0 }"
+  [ngStyle]="{
+    height: fixHeight > 0 ? fixHeight + 'px' : 'auto',
+    width: isEmpty && fixHeight > 0 ? fixHeight + 'px' : 'auto'
+  }"
+  (click)="selectFile()"
+>
+  <img
+    [hidden]="isEmpty"
+    class="imgclient"
+    [src]="_url"
+    (load)="readyimg = true"
+  />
+  <img [hidden]="!isEmpty" [src]="icon" class="emptyimage" />
 
   <div style="display: none">
     <input type="file" #file />
   </div>
   <div class="uploadinginfos" [hidden]="!state.progress || state.done">
-
-    <span>{{state.progress + '%'}}</span>
+    <span>{{ state.progress + "%" }}</span>
     <div class="progress" style="height: 3px;">
-      <div class="progress-bar" role="progressbar" [ngStyle]="{ width: state.progress + '%' }"
-        [attr.aria-valuenow]="state.progress" aria-valuemin="0" aria-valuemax="100"></div>
+      <div
+        class="progress-bar"
+        role="progressbar"
+        [ngStyle]="{ width: state.progress + '%' }"
+        [attr.aria-valuenow]="state.progress"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      ></div>
     </div>
-
   </div>
   <div class="uploadinginfos" [hidden]="readyimg || isEmpty">
     <div class="spinner-border text-primary" role="status">

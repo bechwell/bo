@@ -12,6 +12,7 @@ import { PaginComponent } from "./com/pagin/pagin.component";
 import { DialogComponent } from "./com/dialog/dialog.component";
 import { LoadingComponent } from "./com/loading/loading.component";
 import { UpfileComponent } from './com/upfile/upfile.component';
+import { LoginComponent } from './com/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UpfileComponent } from './com/upfile/upfile.component';
     PaginComponent,
     DialogComponent,
     LoadingComponent,
-    UpfileComponent
+    UpfileComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

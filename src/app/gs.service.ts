@@ -121,6 +121,16 @@ export class GsService {
         });
     });
   }
+  submit(apiName, data) {
+    data.loading = true;
+    return this.api(apiName, data).then(rep => {
+      for (let x in rep) {
+        data[x] = rep[x];
+      }
+      data.loading = false;
+      return data;
+    });
+  }
   test() {
     this.get("product").then(console.log);
   }
@@ -132,7 +142,7 @@ export class GsService {
       return this.user;
     });
   }
-  logout() { }
+  logout() {}
 }
 
 @Injectable({
