@@ -150,6 +150,7 @@ export class GsService {
   }
   logout() {
     this.setUser(null);
+    this.Router.navigateByUrl("/login");
   }
 }
 
