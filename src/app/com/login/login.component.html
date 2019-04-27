@@ -7,32 +7,26 @@
     flex-direction: column;
     background: rgb(224, 224, 224);
   }
+
   .form-signin {
     margin-top: -5%;
     min-width: 340px;
   }
 </style>
 <div class="page">
-  <form class="form-signin" (ngSubmit)="gs.submit('login', data)">
+  <wform api="login" (onResult)="formResult($event.result)" [data]="data">
     <div class="card">
       <div class="card-header">
         <h3>Authentication</h3>
       </div>
       <div class="card-body">
-        <app-input
-          [(myModel)]="data.login"
-          label="Nom d'utilisateur"
-          icon="fas fa-user"
-        ></app-input>
-        <app-input
-          [(myModel)]="data.password"
-          type="password"
-          label="Mot de passe"
-          icon="fas fa-key"
-        ></app-input>
+        <app-input [(myModel)]="repo.login" [(myModelValue)]="data.login" label="Nom d'utilisateur" icon="fas fa-user">
+        </app-input>
+        <app-input [(myModel)]="repo.password" [(myModelValue)]="data.password" type="password" label="Mot de passe"
+          icon="fas fa-key">
+        </app-input>
         <button type="submit" class="btn btn-primary">Connecter</button>
       </div>
     </div>
-  </form>
-  <pre>{{ data | json }}</pre>
+  </wform>
 </div>

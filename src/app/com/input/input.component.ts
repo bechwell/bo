@@ -36,8 +36,9 @@ export class InputComponent implements OnInit {
   @Input() placeHolder: string;
   @Input() name: string;
   @Input() type: string;
-  constructor() {}
-  ngOnInit() {}
+  @Input() icon: string;
+  constructor() { }
+  ngOnInit() { }
   updateValue(val: any) {
     this.myModelValue = val;
     this.myModelChange.emit(this.myModel);

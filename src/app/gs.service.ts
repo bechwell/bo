@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpEventType } from "@angular/common/http";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: "root"
@@ -9,7 +10,7 @@ export class GsService {
   private accessToken = "";
   public config: any = {};
   public baseApiURL = "http://api.wassim.ovh/api";
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public Router: Router) {
     let u = localStorage.getItem("user");
     if (u) this.user = JSON.parse(u);
     this.accessToken = localStorage.getItem("accessToken") || "";
@@ -137,12 +138,19 @@ export class GsService {
   crud(api: any, options: any = {}) {
     return new Crud(this, api, options);
   }
-  login(login: string, pass: string) {
-    return this.api("login", { login, pass }).then(rep => {
-      return this.user;
-    });
+
+  setUser(user) {
+    this.user = user;
+    if (this.user) {
+      localStorage.setItem("user", JSON.stringify(this.user));
+    } else {
+      localStorage.removeItem("user");
+
+    }
   }
-  logout() {}
+  logout() {
+    this.setUser(null);
+  }
 }
 
 @Injectable({
@@ -245,4 +253,4 @@ export class Crud {
     };
     return item;
   }
-}
+} 

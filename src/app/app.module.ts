@@ -13,6 +13,8 @@ import { DialogComponent } from "./com/dialog/dialog.component";
 import { LoadingComponent } from "./com/loading/loading.component";
 import { UpfileComponent } from './com/upfile/upfile.component';
 import { LoginComponent } from './com/login/login.component';
+import { WformComponent } from './com/wform/wform.component';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { LoginComponent } from './com/login/login.component';
     DialogComponent,
     LoadingComponent,
     UpfileComponent,
-    LoginComponent
+    LoginComponent,
+    WformComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

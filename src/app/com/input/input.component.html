@@ -1,21 +1,20 @@
 <div class="form-group">
   <label>{{ label }}</label>
-  <input
-    type="{{ type || 'text' }}"
-    class="form-control"
-    [ngClass]="{
+
+  <div class="input-group ">
+    <div class="input-group-prepend" *ngIf="icon">
+      <label class="input-group-text"><i class="{{icon}}"></i></label>
+    </div>
+    <input type="{{ type || 'text' }}" class="form-control" [ngClass]="{
       'is-invalid': !!(_myModel || {}).error,
       'is-valid': !!(_myModel || {}).success
-    }"
-    [ngModelOptions]="{ standalone: true }"
-    placeholder="{{ placeHolder || label }}"
-    [(ngModel)]="myModelValue"
-    (ngModelChange)="updateValue(myModelValue)"
-  />
-  <div
-    class="valid-feedback"
-    [hidden]="!(_myModel || {}).success || (_myModel || {}).success === true"
-  >
+    }" [ngModelOptions]="{ standalone: true }" placeholder="{{ placeHolder || label }}" [(ngModel)]="myModelValue"
+      (ngModelChange)="updateValue(myModelValue)" />
+
+  </div>
+
+
+  <div class="valid-feedback" [hidden]="!(_myModel || {}).success || (_myModel || {}).success === true">
     {{ (_myModel || {}).success }}
   </div>
   <div class="invalid-feedback" [hidden]="!(_myModel || {}).error">
