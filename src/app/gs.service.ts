@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpEventType } from "@angular/common/http";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, RoutesRecognized } from "@angular/router";
+import schema from "./app-schema.service";
 
 @Injectable({
   providedIn: "root"
@@ -10,7 +11,14 @@ export class GsService {
   private accessToken = "";
   public config: any = {};
   public baseApiURL = "http://api.wassim.ovh/api";
-  constructor(public http: HttpClient, public Router: Router) {
+  public currentMenu: any = {};
+  public currentPage: any = {};
+  public schema: any = schema;
+  constructor(
+    public http: HttpClient,
+    public Router: Router,
+    public ActiveRoute: ActivatedRoute
+  ) {
     let u = localStorage.getItem("user");
     if (u) this.user = JSON.parse(u);
     this.accessToken = localStorage.getItem("accessToken") || "";
@@ -22,7 +30,20 @@ export class GsService {
     });
     this.handlApiResponce = this.handlApiResponce.bind(this);
     this.headerResponce = this.headerResponce.bind(this);
+    this.currentPage = {};
+    this.currentMenu = {};
+    this.Router.events.subscribe(data => {
+      if (data instanceof RoutesRecognized) {
+        this.currentMenu = data.state.root.firstChild.data;
+        if (this.currentMenu.page) {
+          this.currentPage = this.schema.pages[this.currentMenu.page];
+        } else {
+          this.currentPage = {};
+        }
+      }
+    });
   }
+
   request(path, method = "get", params: any = {}, data = {}) {
     if (this.accessToken && this.accessToken !== "") {
       params.access_token = this.accessToken;
@@ -145,7 +166,6 @@ export class GsService {
       localStorage.setItem("user", JSON.stringify(this.user));
     } else {
       localStorage.removeItem("user");
-
     }
   }
   logout() {
@@ -254,4 +274,4 @@ export class Crud {
     };
     return item;
   }
-} 
+}

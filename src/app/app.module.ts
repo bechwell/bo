@@ -15,6 +15,7 @@ import { UpfileComponent } from './com/upfile/upfile.component';
 import { LoginComponent } from './com/login/login.component';
 import { WformComponent } from './com/wform/wform.component';
 import { HomeComponent } from './pages/home/home.component';
+import { AutoappComponent } from './com/autoapp/autoapp.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HomeComponent } from './pages/home/home.component';
     UpfileComponent,
     LoginComponent,
     WformComponent,
-    HomeComponent
+    HomeComponent,
+    AutoappComponent
   ],
   imports: [
     BrowserModule,
